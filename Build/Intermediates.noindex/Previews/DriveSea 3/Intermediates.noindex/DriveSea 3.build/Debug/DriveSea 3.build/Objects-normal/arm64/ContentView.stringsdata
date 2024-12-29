@@ -1,0 +1,20 @@
+{
+  "source": "/Volumes/RamDisk/DriveSea-3/DriveSea 3/ContentView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Select an item"
+      },
+      {
+        "comment": "",
+        "key": "Item at %@"
+      },
+      {
+        "comment": "",
+        "key": "Add Item"
+      }
+    ]
+  },
+  "version": 1
+}

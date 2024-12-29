@@ -1,0 +1,94 @@
+{
+  "buildCommand" : {
+    "command" : "preview",
+    "style" : "dynamicReplacement"
+  },
+  "configuredTargets" : [
+    {
+      "guid" : "55d0977535588c60051fdcda845066d53b853af4a4a942926e8dbedf4f299bac",
+      "parameters" : {
+        "action" : "build",
+        "activeArchitecture" : "arm64",
+        "activeRunDestination" : {
+          "disableOnlyActiveArch" : false,
+          "platform" : "macosx",
+          "sdk" : "macosx14.2",
+          "sdkVariant" : "macos",
+          "supportedArchitectures" : [
+            "arm64e",
+            "arm64",
+            "x86_64"
+          ],
+          "targetArchitecture" : "arm64"
+        },
+        "arenaInfo" : {
+          "buildIntermediatesPath" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex",
+          "buildProductsPath" : "/Volumes/RamDisk/DriveSea 3/Build/Products",
+          "derivedDataPath" : "/Volumes/RamDisk/MountainDuckCache",
+          "indexDataStoreFolderPath" : "/Volumes/RamDisk/MountainDuckCache/DriveSea_3-awckbssgtyogrxdazlwvenfdurix/Index.noindex/DataStore",
+          "indexEnableDataStore" : true,
+          "indexPCHPath" : "/Volumes/RamDisk/MountainDuckCache/DriveSea_3-awckbssgtyogrxdazlwvenfdurix/Index.noindex/PrecompiledHeaders",
+          "pchPath" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex/PrecompiledHeaders"
+        },
+        "configurationName" : "Debug",
+        "overrides" : {
+          "synthesized" : {
+            "table" : {
+              "CLANG_COVERAGE_MAPPING" : "YES",
+              "CLANG_PROFILE_DATA_DIRECTORY" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex/CodeCoverage/ProfileData",
+              "DSTROOT" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex/Previews/DriveSea 3/ReleaseProducts",
+              "ENABLE_PREVIEWS" : "YES",
+              "OBJROOT" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex/Previews/DriveSea 3/Intermediates.noindex",
+              "SYMROOT" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex/Previews/DriveSea 3/Products"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "containerPath" : "/Volumes/RamDisk/DriveSea 3/DriveSea 3.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "activeArchitecture" : "arm64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "macosx",
+      "sdk" : "macosx14.2",
+      "sdkVariant" : "macos",
+      "supportedArchitectures" : [
+        "arm64e",
+        "arm64",
+        "x86_64"
+      ],
+      "targetArchitecture" : "arm64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Volumes/RamDisk/DriveSea 3/Build/Products",
+      "derivedDataPath" : "/Volumes/RamDisk/MountainDuckCache",
+      "indexDataStoreFolderPath" : "/Volumes/RamDisk/MountainDuckCache/DriveSea_3-awckbssgtyogrxdazlwvenfdurix/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Volumes/RamDisk/MountainDuckCache/DriveSea_3-awckbssgtyogrxdazlwvenfdurix/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "CLANG_COVERAGE_MAPPING" : "YES",
+          "CLANG_PROFILE_DATA_DIRECTORY" : "/Volumes/RamDisk/DriveSea 3/Build/Intermediates.noindex/CodeCoverage/ProfileData",
+          "ENABLE_XOJIT_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "schemeCommand" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}
