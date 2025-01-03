@@ -9,75 +9,61 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
+	
+	@State var account: String = ""
+	@State var password: String = ""
+	
+	var body: some View {
+		ZStack{
+			VStack{
+				Color(cgColor: .white)
+					.frame(height: 60)
+				Divider()
+					.padding(.top, -8.0)
+			}
+			HStack{
+				Text(LocalizedStringKey("App_Title"))
+					.padding(.bottom, 8)
+					.padding(.leading)
+					.foregroundStyle(.blue)
+					.font(.largeTitle)
+				Spacer()
+			}
+		}
+		
+		Spacer()
+		Group{
+			VStack(alignment: .trailing){
+				HStack{
+					Text(LocalizedStringKey("Input_Account_Prompt"))
+					TextField(LocalizedStringKey("Input_Account"), text: $account).frame(width: 300)
+				}
+				HStack {
+					Text(LocalizedStringKey("Input_Password_Prompt"))
+					TextField(LocalizedStringKey("Input_Password"), text: $password).frame(width: 300)
+				}
+			}.padding()
+			Spacer()
+//			#### Comment this out only for ease of previewing
+			Divider()
+			HStack{
+				Button(LocalizedStringKey("Login"), action: login)
+					.buttonStyle(.borderedProminent)
+				Button(LocalizedStringKey("Cancel"), role: .destructive, action: cancel)
+			}.padding(.bottom, 8.0)
+		}
+	}
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
+func login () {
+	
+}
+	
+func cancel () {
+	NSApp.keyWindow?.close()
+}
+
 
 #Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+	ContentView()
 }

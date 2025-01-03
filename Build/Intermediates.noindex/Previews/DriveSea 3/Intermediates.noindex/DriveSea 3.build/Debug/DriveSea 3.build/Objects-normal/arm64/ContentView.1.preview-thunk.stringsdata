@@ -1,20 +1,5 @@
 {
   "source": "/Volumes/RamDisk/DriveSea-3/Build/Intermediates.noindex/Previews/DriveSea 3/Intermediates.noindex/DriveSea 3.build/Debug/DriveSea 3.build/Objects-normal/arm64/ContentView.1.preview-thunk.swift",
-  "tables": {
-    "Localizable": [
-      {
-        "comment": "",
-        "key": "Select an item"
-      },
-      {
-        "comment": "",
-        "key": "Item at %@"
-      },
-      {
-        "comment": "",
-        "key": "Add Item"
-      }
-    ]
-  },
+  "tables": {},
   "version": 1
 }

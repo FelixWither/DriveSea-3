@@ -4,15 +4,31 @@
     "Localizable": [
       {
         "comment": "",
-        "key": "Select an item"
+        "key": "App_Title"
       },
       {
         "comment": "",
-        "key": "Item at %@"
+        "key": "Input_Account_Prompt"
       },
       {
         "comment": "",
-        "key": "Add Item"
+        "key": "Input_Account"
+      },
+      {
+        "comment": "",
+        "key": "Input_Password_Prompt"
+      },
+      {
+        "comment": "",
+        "key": "Input_Password"
+      },
+      {
+        "comment": "",
+        "key": "Login"
+      },
+      {
+        "comment": "",
+        "key": "Cancel"
       }
     ]
   },
