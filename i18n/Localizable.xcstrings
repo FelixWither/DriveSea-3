@@ -4,22 +4,22 @@
     "" : {
 
     },
+    "%@ Error: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ Error: %2$@"
+          }
+        }
+      }
+    },
     "%@ Token: %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$@ Token: %2$@"
-          }
-        }
-      }
-    },
-    "%@: %@" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@: %2$@"
           }
         }
       }
@@ -159,6 +159,22 @@
         }
       }
     },
+    "Login_Failed_Input_Empty" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Input for Account or Password yet"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "还未输入用户名或密码！"
+          }
+        }
+      }
+    },
     "Login_Success" : {
       "localizations" : {
         "en" : {
@@ -169,7 +185,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "登陆成功！"
           }
         }
