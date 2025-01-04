@@ -42,7 +42,7 @@ struct LoginView: View {
 					SecureField(LocalizedStringKey("Input_Password"), text: $VM.password).frame(width: 300)
 				}
 				Text(VM.loginStatus)
-					.foregroundColor(VM.loginStatus.contains("successful") ? .green : .red)
+//					.foregroundColor(VM.loginStatus.contains("successful") ? .green : .red)
 					.padding()
 			}.padding()
 			Spacer()

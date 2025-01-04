@@ -8,11 +8,12 @@
 import Foundation
 import Alamofire
 import Combine
+import SwiftUI
 
 class LoginViewModel: ObservableObject {
 	@Published var username: String = ""
 	@Published var password: String = ""
-	@Published var loginStatus: String = "" // To display the status of the login
+	@Published var loginStatus: LocalizedStringResource = ""
 	
 	private var cancellables = Set<AnyCancellable>()
 	
@@ -36,11 +37,11 @@ class LoginViewModel: ObservableObject {
 				switch response.result {
 				case .success(let authResponse):
 					DispatchQueue.main.async {
-						self.loginStatus = "Login successful! Token: \(authResponse.token)"
+						self.loginStatus = "\(LocalizedStringResource("Login_Success")) Token: \(authResponse.token)"
 					}
 				case .failure(let error):
 					DispatchQueue.main.async {
-						self.loginStatus = "Login failed: \(error.localizedDescription)"
+						self.loginStatus = "\(LocalizedStringResource( "Login_Failed")): \(error.localizedDescription)"
 					}
 				}
 			}
