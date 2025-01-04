@@ -8,10 +8,9 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct LoginView: View {
 	
-	@State var account: String = ""
-	@State var password: String = ""
+	@StateObject private var VM = LoginViewModel()
 	
 	var body: some View {
 		ZStack{
@@ -36,27 +35,26 @@ struct ContentView: View {
 			VStack(alignment: .trailing){
 				HStack{
 					Text(LocalizedStringKey("Input_Account_Prompt"))
-					TextField(LocalizedStringKey("Input_Account"), text: $account).frame(width: 300)
+					TextField(LocalizedStringKey("Input_Account"), text: $VM.username).frame(width: 300)
 				}
 				HStack {
 					Text(LocalizedStringKey("Input_Password_Prompt"))
-					TextField(LocalizedStringKey("Input_Password"), text: $password).frame(width: 300)
+					SecureField(LocalizedStringKey("Input_Password"), text: $VM.password).frame(width: 300)
 				}
+				Text(VM.loginStatus)
+					.foregroundColor(VM.loginStatus.contains("successful") ? .green : .red)
+					.padding()
 			}.padding()
 			Spacer()
 //			#### Comment this out only for ease of previewing
 			Divider()
 			HStack{
-				Button(LocalizedStringKey("Login"), action: login)
+				Button(LocalizedStringKey("Login"), action: VM.login)
 					.buttonStyle(.borderedProminent)
 				Button(LocalizedStringKey("Cancel"), role: .destructive, action: cancel)
 			}.padding(.bottom, 8.0)
 		}
 	}
-}
-
-func login () {
-	
 }
 	
 func cancel () {
@@ -65,5 +63,5 @@ func cancel () {
 
 
 #Preview {
-	ContentView()
+	LoginView()
 }

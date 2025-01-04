@@ -14,7 +14,7 @@ struct DriveSea_3App: App {
 	
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
+			LoginView()
 				.environment(\.managedObjectContext, persistenceController.container.viewContext)
 				.onAppear {
 					// Get the window and set its initial size and constraints
