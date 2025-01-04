@@ -32,21 +32,22 @@ struct LoginView: View {
 		
 		Spacer()
 		Group{
-			VStack(alignment: .trailing){
-				HStack{
-					Text(LocalizedStringKey("Input_Account_Prompt"))
-					TextField(LocalizedStringKey("Input_Account"), text: $VM.username).frame(width: 300)
-				}
-				HStack {
-					Text(LocalizedStringKey("Input_Password_Prompt"))
-					SecureField(LocalizedStringKey("Input_Password"), text: $VM.password).frame(width: 300)
-				}
-				Text(VM.loginStatus)
-//					.foregroundColor(VM.loginStatus.contains("successful") ? .green : .red)
-					.padding()
-			}.padding()
+			HStack{
+				Spacer()
+				VStack(alignment: .trailing){
+					HStack{
+						Text(LocalizedStringKey("Input_Account_Prompt"))
+						TextField(LocalizedStringKey("Input_Account"), text: $VM.username).frame(width: 300)
+					}
+					HStack {
+						Text(LocalizedStringKey("Input_Password_Prompt"))
+						SecureField(LocalizedStringKey("Input_Password"), text: $VM.password).frame(width: 300)
+					}
+					Text(VM.loginStatus)
+				}.padding()
+				Spacer()
+			}
 			Spacer()
-//			#### Comment this out only for ease of previewing
 			Divider()
 			HStack{
 				Button(LocalizedStringKey("Login"), action: VM.login)
