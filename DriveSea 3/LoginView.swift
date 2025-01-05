@@ -13,10 +13,63 @@ struct LoginView: View {
 	@StateObject private var VM = LoginViewModel()
 	
 	var body: some View {
+		TitleBar()
+		VStack{
+			Spacer()
+			AccountField()
+				.environmentObject(VM)
+			Spacer()
+			Divider()
+			Buttons()
+				.environmentObject(VM)
+		}
+	}
+}
+
+struct Buttons: View {
+	@EnvironmentObject var VM: LoginViewModel
+	
+	var body: some View {
+		HStack{
+			Button(LocalizedStringKey("Login"), action: VM.login)
+				.buttonStyle(.borderedProminent)
+			Button(LocalizedStringKey("Cancel"), role: .destructive, action: cancel)
+		}.padding(.bottom, 8.0)
+	}
+}
+
+struct AccountField: View {
+	@EnvironmentObject var VM: LoginViewModel
+	
+	var body: some View {
+		HStack{
+			Spacer()
+			VStack(alignment: .center){
+				HStack{
+					Text(LocalizedStringKey("Input_Account_Prompt"))
+						.frame(minWidth: 50)
+					TextField(LocalizedStringKey("Input_Account"), text: $VM.username)
+						.frame(width: 300)
+				}
+				HStack {
+					Text(LocalizedStringKey("Input_Password_Prompt"))
+						.frame(minWidth: 50)
+					SecureField(LocalizedStringKey("Input_Password"), text: $VM.password).frame(width: 300)
+				}
+				Text(VM.loginStatus)
+			}
+				.padding()
+				.frame(minHeight: 100)
+			Spacer()
+		}
+	}
+}
+
+struct TitleBar: View {
+	var body: some View {
 		ZStack{
 			VStack{
 				Color(cgColor: .white)
-					.frame(height: 60)
 				Divider()
 					.padding(.top, -8.0)
 			}
@@ -28,33 +81,7 @@ struct LoginView: View {
 					.font(.largeTitle)
 				Spacer()
 			}
-		}
-		
-		Spacer()
-		Group{
-			HStack{
-				Spacer()
-				VStack(alignment: .trailing){
-					HStack{
-						Text(LocalizedStringKey("Input_Account_Prompt"))
-						TextField(LocalizedStringKey("Input_Account"), text: $VM.username).frame(width: 300)
-					}
-					HStack {
-						Text(LocalizedStringKey("Input_Password_Prompt"))
-						SecureField(LocalizedStringKey("Input_Password"), text: $VM.password).frame(width: 300)
-					}
-					Text(VM.loginStatus)
-				}.padding()
-				Spacer()
-			}
-			Spacer()
-			Divider()
-			HStack{
-				Button(LocalizedStringKey("Login"), action: VM.login)
-					.buttonStyle(.borderedProminent)
-				Button(LocalizedStringKey("Cancel"), role: .destructive, action: cancel)
-			}.padding(.bottom, 8.0)
-		}
+		}.frame(height: 60)
 	}
 }
 	
