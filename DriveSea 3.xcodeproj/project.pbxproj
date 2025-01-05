@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A9614C2B2D2982F30078D1AB /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9614C2A2D2982F30078D1AB /* LoginModel.swift */; };
+		A9614C2B2D2982F30078D1AB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9614C2A2D2982F30078D1AB /* NetworkManager.swift */; };
 		A9614C2D2D29929B0078D1AB /* DataStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9614C2C2D29929B0078D1AB /* DataStruct.swift */; };
 		A9614C2F2D29937F0078D1AB /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9614C2E2D29937F0078D1AB /* NetworkAPI.swift */; };
 		A96CB0322D21A291003E72F6 /* DriveSea_3App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96CB0312D21A291003E72F6 /* DriveSea_3App.swift */; };
@@ -42,7 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A9614C2A2D2982F30078D1AB /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
+		A9614C2A2D2982F30078D1AB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A9614C2C2D29929B0078D1AB /* DataStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStruct.swift; sourceTree = "<group>"; };
 		A9614C2E2D29937F0078D1AB /* NetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPI.swift; sourceTree = "<group>"; };
 		A96CB02E2D21A291003E72F6 /* DriveSea 3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DriveSea 3.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,8 +115,8 @@
 				A96CB0312D21A291003E72F6 /* DriveSea_3App.swift */,
 				A96CB0332D21A291003E72F6 /* LoginView.swift */,
 				A9B784442D28F340000EF282 /* LoginVM.swift */,
-				A9614C2A2D2982F30078D1AB /* LoginModel.swift */,
 				A9614C2E2D29937F0078D1AB /* NetworkAPI.swift */,
+				A9614C2A2D2982F30078D1AB /* NetworkManager.swift */,
 				A9614C2C2D29929B0078D1AB /* DataStruct.swift */,
 				A96CB0352D21A292003E72F6 /* Assets.xcassets */,
 				A96CB03A2D21A292003E72F6 /* Persistence.swift */,
@@ -300,7 +300,7 @@
 			files = (
 				A9614C2D2D29929B0078D1AB /* DataStruct.swift in Sources */,
 				A96CB03E2D21A292003E72F6 /* DriveSea_3.xcdatamodeld in Sources */,
-				A9614C2B2D2982F30078D1AB /* LoginModel.swift in Sources */,
+				A9614C2B2D2982F30078D1AB /* NetworkManager.swift in Sources */,
 				A96CB03B2D21A292003E72F6 /* Persistence.swift in Sources */,
 				A96CB0342D21A291003E72F6 /* LoginView.swift in Sources */,
 				A96CB0322D21A291003E72F6 /* DriveSea_3App.swift in Sources */,

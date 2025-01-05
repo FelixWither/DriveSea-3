@@ -1,5 +1,5 @@
 //
-//  LoginModel.swift
+//  NetworkManager.swift
 //  DriveSea 3
 //
 //  Created by FelixWither on 2025/1/4.
@@ -12,9 +12,9 @@ typealias NetworkRequestResult = Result<Data, Error>
 typealias NetworkRequestCompletion = (NetworkRequestResult) -> Void
 
 
-class LoginService {
+class NetworkManager {
 	//MARK: - Create Shared Instance
-	static let shared = LoginService()
+	static let shared = NetworkManager()
 	//MARK: - Single(Shared) Instance Only
 	private init() {}
 	

@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkAPI{
 	static func Login(user: User, completion: @escaping (Result<AuthResponse, Error>) -> Void){
-		LoginService.shared.login(user: user) { result in
+		NetworkManager.shared.login(user: user) { result in
 			switch result{
 			case let .success(data):
 				let parsedResult: Result<AuthResponse,Error> = ParseData(data)
