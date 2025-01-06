@@ -56,11 +56,17 @@ class NetworkManager {
 			let userInfo: [String: String]
 			switch responseCode {
 			case 400:
-				userInfo = [NSLocalizedDescriptionKey: "坏请求，坏！检查用户名和密码！（HTTP \(responseCode)）"]
+				userInfo = [NSLocalizedDescriptionKey: String(format: NSLocalizedString("HTTPBadRequestMsg", comment: ""),
+															  NSLocalizedString("HTTPBadRequest", comment: ""),
+															  responseCode)]
 			case 401:
-				userInfo = [NSLocalizedDescriptionKey: "未授权喵～（HTTP \(responseCode)）"]
+				userInfo = [NSLocalizedDescriptionKey: String(format: NSLocalizedString("HTTPUnauthorizedMsg", comment: ""),
+															  NSLocalizedString("HTTPUnauthorized", comment: ""),
+															  responseCode)]
 			default:
-				userInfo = [NSLocalizedDescriptionKey: "HTTP错误码：\(responseCode)"]
+				userInfo = [NSLocalizedDescriptionKey: String(format: NSLocalizedString("HTTPErrCodeMsg", comment: ""),
+															  NSLocalizedString("HTTPErrCode", comment:""),
+															  responseCode)]
 			}
 			let currentError = NSError(domain: "com.drivesea.network", code: responseCode, userInfo: userInfo)
 			return .failure(currentError)
@@ -74,21 +80,24 @@ class NetworkManager {
 			
 			switch code {
 			case NSURLErrorNotConnectedToInternet:
-				userInfo[NSLocalizedDescriptionKey] = "无法连接到互联网喵～"
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("NotConnectedToInternet", comment: "")
 			case NSURLErrorTimedOut:
-				userInfo[NSLocalizedDescriptionKey] = "连接超时喵～"
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("ConnectionTimedOut", comment: "")
 			case NSURLErrorInternationalRoamingOff:
-				userInfo[NSLocalizedDescriptionKey] = "主人还没打开国际漫游喵～"
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("InternationalRoamingOff", comment: "")
 			case NSURLErrorDataNotAllowed:
-				userInfo[NSLocalizedDescriptionKey] = "主人还没允许我使用数据流量喵～"
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("DataNetworkNotAllowed", comment: "")
 			case NSURLErrorCannotFindHost:
-				userInfo[NSLocalizedDescriptionKey] = "无法找到服务器喵～"
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("CannotFindHost", comment: "")
 			case NSURLErrorCannotConnectToHost:
-				userInfo[NSLocalizedDescriptionKey] = "无法连接到服务器喵～"
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("CannotConnectToHost", comment: "")
 			case NSURLErrorNetworkConnectionLost:
-				userInfo[NSLocalizedDescriptionKey] = "连接丢失喵～"
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("NetworkConnectionLost", comment: "")
 			default:
-				userInfo[NSLocalizedDescriptionKey] = "未知错误喵～（系统错误代码：NSError \(code)）"
+				userInfo[NSLocalizedDescriptionKey] = String(format: NSLocalizedString("OtherNetworkError", comment: ""),
+															 NSLocalizedString("UnknownError", comment: ""),
+															 NSLocalizedString("SystemErrorCode", comment: ""),
+															 code)
 			}
 			let currentError = NSError(domain: nserror.domain, code: code, userInfo: userInfo)
 			return .failure(currentError)
