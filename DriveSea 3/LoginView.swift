@@ -44,22 +44,24 @@ struct AccountField: View {
 	var body: some View {
 		HStack{
 			Spacer()
-			VStack(alignment: .center){
-				HStack{
-					Text(LocalizedStringKey("Input_Account_Prompt"))
-						.frame(minWidth: 50)
-					TextField(LocalizedStringKey("Input_Account"), text: $VM.username)
-						.frame(width: 300)
-				}
-				HStack {
-					Text(LocalizedStringKey("Input_Password_Prompt"))
-						.frame(minWidth: 50)
-					SecureField(LocalizedStringKey("Input_Password"), text: $VM.password).frame(width: 300)
+			VStack{
+				VStack(alignment: .trailing){
+					HStack{
+						Text(LocalizedStringKey("Input_Account_Prompt"))
+							.frame(minWidth: 50)
+						TextField(LocalizedStringKey("Input_Account"), text: $VM.username)
+							.frame(width: 300)
+					}
+					HStack {
+						Text(LocalizedStringKey("Input_Password_Prompt"))
+							.frame(minWidth: 50)
+						SecureField(LocalizedStringKey("Input_Password"), text: $VM.password).frame(width: 300)
+					}
 				}
 				Text(VM.loginStatus)
 			}
-				.padding()
-				.frame(minHeight: 100)
+			.padding()
+			.frame(minHeight: 100)
 			Spacer()
 		}
 	}

@@ -8,17 +8,16 @@
 import Foundation
 import Alamofire
 import Combine
-import SwiftUI
 
 class LoginViewModel: ObservableObject {
 	@Published var username: String = ""
 	@Published var password: String = ""
-	@Published var loginStatus: LocalizedStringResource = ""
+	@Published var loginStatus: String = ""
 
 	func login() {
 		// Validate input
 		guard !username.isEmpty, !password.isEmpty else {
-			self.loginStatus = LocalizedStringResource("Login_Failed_Input_Empty")
+			self.loginStatus = NSLocalizedString("Login_Failed_Input_Empty", comment: "")
 			return
 		}
 		
@@ -29,10 +28,16 @@ class LoginViewModel: ObservableObject {
 		NetworkAPI.Login(user: user) { result in
 			switch result {
 			case .success(let authResponse):
-				self.loginStatus = "\(LocalizedStringResource("Login_Success")) Token: \(authResponse.token)"
+				self.loginStatus = String(format: NSLocalizedString("Login_Success_Message", comment: ""),
+										  NSLocalizedString("Login_Success", comment: ""),
+										  "Token: \(authResponse.token)")
 				// Handle the token here
 			case .failure(let error):
-				self.loginStatus = "\(LocalizedStringResource("Login_Failed")) Error: \(error.localizedDescription)"
+				self.loginStatus = String(
+					format: NSLocalizedString("Login_Failed_Error_Message", comment: ""),
+							 NSLocalizedString("Login_Failed", comment: ""),
+							 NSLocalizedString("Error", comment: ""),
+							 error.localizedDescription)
 			}
 		}
 	}
