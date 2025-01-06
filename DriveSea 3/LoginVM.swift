@@ -25,7 +25,8 @@ class LoginViewModel: ObservableObject {
 		let user = User(username: username, password: password)
 
 		// Call the login method of LoginService
-		NetworkAPI.Login(user: user) { result in
+		NetworkAPI.Login(user: user) { [weak self] result in
+			guard let self = self else { return }
 			switch result {
 			case .success(let authResponse):
 				self.loginStatus = String(format: NSLocalizedString("Login_Success_Message", comment: ""),

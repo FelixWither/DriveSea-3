@@ -33,9 +33,7 @@ class NetworkManager {
 		return AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
 			.validate() // Automatically checks HTTP response status codes
 			.responseDecodable(of: AuthResponse.self) { [weak self] response in
-				guard let self = self else {
-					return
-				}
+				guard let self = self else { return }
 				self.APISuccessCheck(response, completion: completion)
 			}
 	}

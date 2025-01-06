@@ -10,12 +10,18 @@ import Foundation
 class NetworkAPI{
 	static func Login(user: User, completion: @escaping (Result<AuthResponse, Error>) -> Void){
 		NetworkManager.shared.login(user: user) { result in
-			switch result{
-			case let .success(data):
-				let parsedResult: Result<AuthResponse,Error> = ParseData(data)
-				completion(parsedResult)
-			case let .failure(error):
-				completion(.failure(error))
+			DispatchQueue.global(qos: .background).async {
+				switch result{
+				case let .success(data):
+					let parsedResult: Result<AuthResponse,Error> = ParseData(data)
+					DispatchQueue.main.async {
+						completion(parsedResult)
+					}
+				case let .failure(error):
+					DispatchQueue.main.async {
+						completion(.failure(error))
+					}
+				}
 			}
 		}
 	}
