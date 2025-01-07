@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User {
+struct User: JSONCodable {
 	var username: String
 	var password: String
 }
