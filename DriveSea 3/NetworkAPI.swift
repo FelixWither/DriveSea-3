@@ -26,8 +26,8 @@ class NetworkAPI{
 	}
 	
 	
-	private static func ParseData<T: Decodable>(_ data: Data, completion: @escaping (Result<T, Error>) -> Void) {
-		DispatchQueue.global(qos: .background).async {
+	private static func ParseData <T: Decodable>(_ data: Data, completion: @escaping (Result<T, Error>) -> Void) {
+		DispatchQueue.global(qos: .userInitiated).async {
 			do {
 				let decodedData = try JSONDecoder().decode(T.self, from: data)
 				completion(.success(decodedData))
