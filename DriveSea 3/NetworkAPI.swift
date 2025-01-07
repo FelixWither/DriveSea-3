@@ -12,30 +12,32 @@ class NetworkAPI{
 		NetworkManager.shared.login(user: user) { result in
 			switch result {
 			case let .success(data):
-				ParseData(data) { completion($0) }
+				ParseData(data) { parsedResult in
+					DispatchQueue.main.async {
+						completion(parsedResult)
+					}
+				}
 			case let .failure(error):
-				completion(.failure(error))
+				DispatchQueue.main.async {
+					completion(.failure(error))
+				}
 			}
 		}
 	}
 	
 	
-	private static func ParseData <T: Decodable>(_ data: Data, completion: @escaping (Result<T, Error>) -> Void) {
+	private static func ParseData<T: Decodable>(_ data: Data, completion: @escaping (Result<T, Error>) -> Void) {
 		DispatchQueue.global(qos: .background).async {
 			do {
 				let decodedData = try JSONDecoder().decode(T.self, from: data)
-				DispatchQueue.main.async {
-					completion(.success(decodedData))
-				}
+				completion(.success(decodedData))
 			} catch {
 				let parseError = NSError(
 					domain: "NetworkAPIError",
 					code: 0,
 					userInfo: [NSLocalizedDescriptionKey: "无法解析数据喵: \(error.localizedDescription)"]
 				)
-				DispatchQueue.main.async {
-					completion(.failure(parseError))
-				}
+				completion(.failure(parseError))
 			}
 		}
 	}
