@@ -41,7 +41,8 @@ class NetworkManager {
 		}
 	}
 	
-	private func APISuccessCheck(_ response: DataResponse<AuthResponse, AFError>, completion: @escaping NetworkRequestCompletion){
+	//MARK: - General API success check
+	private func APISuccessCheck <T: Decodable>(_ response: DataResponse<T, AFError>, completion: @escaping NetworkRequestCompletion){
 		switch response.result{
 		case .success(_):
 			let data = response.data
@@ -51,25 +52,29 @@ class NetworkManager {
 		}
 	}
 	
+	//MARK: - Return specific network error type with localized description
 	private func HandleNetConnectError(_ error: AFError) -> NetworkRequestResult {
+		let userInfo: [String: String]
+		let domain = "com.drivesea.network"
+		let errMsg = NSLocalizedDescriptionKey
+		
 		// First, handle specific HTTP response codes
 		if let responseCode = error.responseCode {
-			let userInfo: [String: String]
 			switch responseCode {
 			case 400:
-				userInfo = [NSLocalizedDescriptionKey: String(format: NSLocalizedString("HTTPBadRequestMsg", comment: ""),
-															  NSLocalizedString("HTTPBadRequest", comment: ""),
-															  responseCode)]
+				userInfo = [errMsg: String(format: NSLocalizedString("HTTPBadRequestMsg", comment: ""),
+													NSLocalizedString("HTTPBadRequest", comment: ""),
+													responseCode)]
 			case 401:
-				userInfo = [NSLocalizedDescriptionKey: String(format: NSLocalizedString("HTTPUnauthorizedMsg", comment: ""),
-															  NSLocalizedString("HTTPUnauthorized", comment: ""),
-															  responseCode)]
+				userInfo = [errMsg: String(format: NSLocalizedString("HTTPUnauthorizedMsg", comment: ""),
+													NSLocalizedString("HTTPUnauthorized", comment: ""),
+													responseCode)]
 			default:
-				userInfo = [NSLocalizedDescriptionKey: String(format: NSLocalizedString("HTTPErrCodeMsg", comment: ""),
-															  NSLocalizedString("HTTPErrCode", comment:""),
-															  responseCode)]
+				userInfo = [errMsg: String(format: NSLocalizedString("HTTPErrCodeMsg", comment: ""),
+													NSLocalizedString("HTTPErrCode", comment:""),
+													responseCode)]
 			}
-			let currentError = NSError(domain: "com.drivesea.network", code: responseCode, userInfo: userInfo)
+			let currentError = NSError(domain: domain, code: responseCode, userInfo: userInfo)
 			return .failure(currentError)
 		}
 
