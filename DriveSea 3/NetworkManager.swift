@@ -11,6 +11,9 @@ import Alamofire
 typealias NetworkRequestResult = Result<Data, Error>
 typealias NetworkRequestCompletion = (NetworkRequestResult) -> Void
 
+let baseURL = "http://192.168.0.200:8000/api2/"
+let getToken = "auth-token/"
+
 
 class NetworkManager {
 	//MARK: - Create Shared Instance
@@ -21,7 +24,7 @@ class NetworkManager {
 	@discardableResult
 	func login(user: User, completion: @escaping NetworkRequestCompletion) -> DataRequest{
 		// Define the API endpoint
-		let url = "http://192.168.0.200:8000/api2/auth-token/"
+		let url = baseURL + getToken
 		
 		// Prepare the payload
 		let parameters: [String: String] = [
@@ -35,7 +38,7 @@ class NetworkManager {
 			.responseDecodable(of: AuthResponse.self) { [weak self] response in
 				guard let self = self else { return }
 				self.APISuccessCheck(response, completion: completion)
-			}
+		}
 	}
 	
 	private func APISuccessCheck(_ response: DataResponse<AuthResponse, AFError>, completion: @escaping NetworkRequestCompletion){
