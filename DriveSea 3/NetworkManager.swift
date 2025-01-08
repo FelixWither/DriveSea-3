@@ -25,9 +25,10 @@ class NetworkManager {
 	func login(user: User, completion: @escaping NetworkRequestCompletion) -> DataRequest{
 		// Define the API endpoint
 		let url = baseURL + getToken
+		let parameters = user.toDictionary()
 		
 		// Perform the POST request
-		return AF.request(url, method: .post, parameters: user.toDictionary(), encoding: JSONEncoding.default)
+		return AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
 			.validate() // Automatically checks HTTP response status codes
 			.responseDecodable(of: AuthResponse.self) { [weak self] response in
 				guard let self = self else { return }
