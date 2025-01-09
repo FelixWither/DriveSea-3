@@ -360,6 +360,22 @@
         }
       }
     },
+    "Login_Failed_No_Token" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No token provided by server."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "服务器没给我Token喵～"
+          }
+        }
+      }
+    },
     "Login_Success" : {
       "localizations" : {
         "en" : {

@@ -13,7 +13,7 @@ class LoginViewModel: ObservableObject {
 	@Published var username: String = ""
 	@Published var password: String = ""
 	@Published var loginStatus: String = ""
-	var token: String = ""
+	var token: String?
 
 	func login() {
 		// Validate input
@@ -32,6 +32,10 @@ class LoginViewModel: ObservableObject {
 			case .success(let authResponse):
 				self.token = authResponse.token
 				// Proceed with the next API call to fetch libraries
+				guard let token = token else {
+					self.loginStatus = NSLocalizedString("Login_Failed_No_Token", comment: "")
+					return
+				}
 				self.fetchLibraries(for: .all, credential: token)
 			case .failure(let error):
 				displayLoginError(error)
