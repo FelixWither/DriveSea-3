@@ -10,9 +10,19 @@ import Alamofire
 
 typealias NetworkRequestResult = Result<Data, Error>
 typealias NetworkRequestCompletion = (NetworkRequestResult) -> Void
+typealias LibraryList = [LibraryInfo]
 
-let baseURL = "http://192.168.0.200:8000/api2/"
-let getToken = "auth-token/"
+private let baseURL = "http://192.168.0.200:8000/api2/"
+private let getToken = "auth-token/"
+private let getLibraries = "repos/"
+
+enum LibraryType: String {
+	case mine = "mine"
+	case shared = "shared"
+	case group = "group"
+	case org = "org"
+	case all
+}
 
 
 class NetworkManager {
@@ -28,9 +38,36 @@ class NetworkManager {
 		let parameters = user.toDictionary()
 		
 		// Perform the POST request
-		return AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+		return AF.request(url,
+						  method: .post,
+						  parameters: parameters,
+						  encoding: JSONEncoding.default)
 			.validate() // Automatically checks HTTP response status codes
 			.responseDecodable(of: AuthResponse.self) { [weak self] response in
+				guard let self = self else { return }
+				self.APISuccessCheck(response, completion: completion)
+		}
+	}
+	
+	@discardableResult
+	func listLibraries(for libType: LibraryType, credential: String,
+					   completion: @escaping NetworkRequestCompletion) -> DataRequest {
+		let url = baseURL + getLibraries
+		
+		// If listing for all libraries, no parameters required (thus setting it to nil)
+		// If listing for other libraries, set parameters to ["type": "mine"] or others
+		let parameters = libType == .all ? nil : ["type": libType.rawValue]
+		
+		let headers: HTTPHeaders = ["Authorization": "Token \(credential)",
+									"Accept": "application/json"]
+		
+		return AF.request(url,
+						  method: .get,
+						  parameters: parameters,
+						  encoding: JSONEncoding.default,
+						  headers: headers)
+			.validate()
+			.responseDecodable(of: LibraryList.self) { [weak self] response in
 				guard let self = self else { return }
 				self.APISuccessCheck(response, completion: completion)
 		}

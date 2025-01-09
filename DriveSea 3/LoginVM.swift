@@ -13,6 +13,7 @@ class LoginViewModel: ObservableObject {
 	@Published var username: String = ""
 	@Published var password: String = ""
 	@Published var loginStatus: String = ""
+	var token: String = ""
 
 	func login() {
 		// Validate input
@@ -29,16 +30,34 @@ class LoginViewModel: ObservableObject {
 			guard let self = self else { return }
 			switch result {
 			case .success(let authResponse):
-				self.loginStatus = String(format: NSLocalizedString("Login_Success_Message", comment: ""),
-										  NSLocalizedString("Login_Success", comment: ""),
-										  "Token: \(authResponse.token)")
-				// Handle the token here
+				self.token = authResponse.token
+				// Proceed with the next API call to fetch libraries
+				self.fetchLibraries(for: .all, credential: token)
 			case .failure(let error):
 				self.loginStatus = String(
 					format: NSLocalizedString("Login_Failed_Error_Message", comment: ""),
-							 NSLocalizedString("Login_Failed", comment: ""),
-							 NSLocalizedString("Error", comment: ""),
-							 error.localizedDescription)
+					NSLocalizedString("Login_Failed", comment: ""),
+					NSLocalizedString("Error", comment: ""),
+					error.localizedDescription)
+			}
+		}
+	}
+
+	private func fetchLibraries(for libType: LibraryType, credential: String) {
+		// Use the token to fetch libraries
+		NetworkAPI.ListLibraries(for: libType, credential: credential) { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let libList):
+				self.loginStatus = String(format: NSLocalizedString("Login_Success_Message", comment: ""),
+										   NSLocalizedString("Login_Success", comment: ""),
+										  "Libraries: \(libList.count)")
+			case .failure(let error):
+				self.loginStatus = String(
+					format: NSLocalizedString("Login_Failed_Error_Message", comment: ""),
+					NSLocalizedString("Login_Failed", comment: ""),
+					NSLocalizedString("Error", comment: ""),
+					error.localizedDescription)
 			}
 		}
 	}
