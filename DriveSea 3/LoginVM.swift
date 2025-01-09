@@ -34,11 +34,7 @@ class LoginViewModel: ObservableObject {
 				// Proceed with the next API call to fetch libraries
 				self.fetchLibraries(for: .all, credential: token)
 			case .failure(let error):
-				self.loginStatus = String(
-					format: NSLocalizedString("Login_Failed_Error_Message", comment: ""),
-					NSLocalizedString("Login_Failed", comment: ""),
-					NSLocalizedString("Error", comment: ""),
-					error.localizedDescription)
+				displayLoginError(error)
 			}
 		}
 	}
@@ -53,12 +49,16 @@ class LoginViewModel: ObservableObject {
 										   NSLocalizedString("Login_Success", comment: ""),
 										  "Libraries: \(libList.count)")
 			case .failure(let error):
-				self.loginStatus = String(
-					format: NSLocalizedString("Login_Failed_Error_Message", comment: ""),
-					NSLocalizedString("Login_Failed", comment: ""),
-					NSLocalizedString("Error", comment: ""),
-					error.localizedDescription)
+				displayLoginError(error)
 			}
 		}
+	}
+	
+	private func displayLoginError(_ error: Error) {
+		self.loginStatus = String(
+			format: NSLocalizedString("Login_Failed_Error_Message", comment: ""),
+			NSLocalizedString("Login_Failed", comment: ""),
+			NSLocalizedString("Error", comment: ""),
+			error.localizedDescription)
 	}
 }

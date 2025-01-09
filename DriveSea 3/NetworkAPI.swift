@@ -7,38 +7,34 @@
 
 import Foundation
 
+typealias DecodedResult <T: Decodable> = Result<T, Error>
+typealias DecodedResultHandler <T: Decodable> = (DecodedResult<T>) -> Void
+
 class NetworkAPI{
 	static func Login(user: User, completion: @escaping (Result<AuthResponse, Error>) -> Void){
 		NetworkManager.shared.login(user: user) { result in
-			switch result {
-			case let .success(data):
-				ParseData(data) { parsedResult in
-					DispatchQueue.main.async {
-						completion(parsedResult)
-					}
-				}
-			case let .failure(error):
-				DispatchQueue.main.async {
-					completion(.failure(error))
-				}
-			}
+			HandleResult(result, completion: completion)
 		}
 	}
 	
 	static func ListLibraries(for libType: LibraryType, credential: String, 
 							  completion: @escaping (Result<LibraryList, Error>) -> Void) {
 		NetworkManager.shared.listLibraries(for: libType, credential: credential) { result in
-			switch result{
-			case let .success(data):
-				ParseData(data) { parsedResult in
-					DispatchQueue.main.async {
-						completion(parsedResult)
-					}
-				}
-			case let .failure(error):
+			HandleResult(result, completion: completion)
+		}
+	}
+	
+	private static func HandleResult <T: Decodable>(_ result: NetworkRequestResult, completion: @escaping DecodedResultHandler<T>) {
+		switch result{
+		case let .success(data):
+			ParseData(data) { parsedResult in
 				DispatchQueue.main.async {
-					completion(.failure(error))
+					completion(parsedResult)
 				}
+			}
+		case let .failure(error):
+			DispatchQueue.main.async {
+				completion(.failure(error))
 			}
 		}
 	}
