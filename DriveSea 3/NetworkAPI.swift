@@ -49,7 +49,7 @@ class NetworkAPI{
 				let parseError = NSError(
 					domain: "NetworkAPIError",
 					code: 0,
-					userInfo: [NSLocalizedDescriptionKey: "无法解析数据喵: \(error.localizedDescription)"]
+					userInfo: [NSLocalizedDescriptionKey: "\(NSLocalizedString("Data_Parse_Failed", comment: "")) \(error.localizedDescription)"]
 				)
 				completion(.failure(parseError))
 			}
