@@ -1,9 +1,8 @@
 //
 //  XPCService.swift
-//  DriveSea 3
+//  XPCService
 //
-//  Created by FelixWither on 2025/1/16.
-//  Referenced: SampleXPCService by Jeff Spooner
+//  Created by FelixWither on 2025/4/4.
 //
 
 import Foundation
@@ -17,8 +16,8 @@ class XPCService: NSObject, NSXPCListenerDelegate, XPCExposedProtocols{
 	var connection : NSXPCConnection?
 	
 	override init(){
-		super.init()
 		listener = NSXPCListener(machServiceName: xpcServiceLabel)
+		super.init()
 		listener.delegate = self
 	}
 	

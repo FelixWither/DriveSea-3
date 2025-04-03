@@ -1,8 +1,8 @@
 //
-//  ClientProtocol.swift
-//  DriveSea 3
+//  XPCServiceProtocol.swift
+//  XPCService
 //
-//  Created by FelixWither on 2025/1/16.
+//  Created by FelixWither on 2025/4/4.
 //
 
 import Foundation

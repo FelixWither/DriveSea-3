@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A960B24C2D9F0042003F7F1C /* XPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24B2D9F0042003F7F1C /* XPCService.swift */; };
+		A960B24E2D9F0042003F7F1C /* XPCServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */; };
+		A960B2502D9F0042003F7F1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24F2D9F0042003F7F1C /* main.swift */; };
+		A960B2552D9F0042003F7F1C /* XPCService.xpc in Embed XPC Services */ = {isa = PBXBuildFile; fileRef = A960B2492D9F0042003F7F1C /* XPCService.xpc */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A9614C2B2D2982F30078D1AB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9614C2A2D2982F30078D1AB /* NetworkManager.swift */; };
 		A9614C2D2D29929B0078D1AB /* DataStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9614C2C2D29929B0078D1AB /* DataStruct.swift */; };
 		A9614C2F2D29937F0078D1AB /* NetworkAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9614C2E2D29937F0078D1AB /* NetworkAPI.swift */; };
@@ -22,16 +26,19 @@
 		A97F28B72D2D2B7800F40A70 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97F28B62D2D2B7800F40A70 /* Protocols.swift */; };
 		A9923C0F2D3950800020910A /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9923C0E2D3950800020910A /* FinderSync.swift */; };
 		A9923C142D3950800020910A /* DriveSea Finder Connector.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A9923C0C2D3950800020910A /* DriveSea Finder Connector.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		A9923C1B2D3951060020910A /* XPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9923C1A2D3951060020910A /* XPCService.swift */; };
-		A9923C1D2D3952A70020910A /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9923C1C2D3952A70020910A /* Protocols.swift */; };
-		A9923C1F2D3958540020910A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9923C1E2D3958540020910A /* main.swift */; };
-		A9923C212D3959070020910A /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A9923C202D3959070020910A /* Info.plist */; };
 		A9B784452D28F340000EF282 /* LoginVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B784442D28F340000EF282 /* LoginVM.swift */; };
 		A9B784482D28F39D000EF282 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A9B784472D28F39D000EF282 /* Alamofire */; };
 		A9E068252D284EC9004342E2 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = A9E068242D284EC9004342E2 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A960B2532D9F0042003F7F1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A96CB0262D21A291003E72F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A960B2482D9F0042003F7F1C;
+			remoteInfo = XPCService;
+		};
 		A96CB0452D21A293003E72F6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A96CB0262D21A291003E72F6 /* Project object */;
@@ -56,6 +63,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		A960B2562D9F0042003F7F1C /* Embed XPC Services */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/XPCServices";
+			dstSubfolderSpec = 16;
+			files = (
+				A960B2552D9F0042003F7F1C /* XPCService.xpc in Embed XPC Services */,
+			);
+			name = "Embed XPC Services";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9923C152D3950800020910A /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -70,6 +88,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A960B2492D9F0042003F7F1C /* XPCService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = XPCService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
+		A960B24B2D9F0042003F7F1C /* XPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCService.swift; sourceTree = "<group>"; };
+		A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCServiceProtocol.swift; sourceTree = "<group>"; };
+		A960B24F2D9F0042003F7F1C /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A960B2512D9F0042003F7F1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A960B2522D9F0042003F7F1C /* XPCService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XPCService.entitlements; sourceTree = "<group>"; };
 		A9614C2A2D2982F30078D1AB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A9614C2C2D29929B0078D1AB /* DataStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStruct.swift; sourceTree = "<group>"; };
 		A9614C2E2D29937F0078D1AB /* NetworkAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAPI.swift; sourceTree = "<group>"; };
@@ -91,15 +115,18 @@
 		A9923C0E2D3950800020910A /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
 		A9923C102D3950800020910A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9923C112D3950800020910A /* DriveSea_Finder_Connector.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DriveSea_Finder_Connector.entitlements; sourceTree = "<group>"; };
-		A9923C1A2D3951060020910A /* XPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCService.swift; sourceTree = "<group>"; };
-		A9923C1C2D3952A70020910A /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
-		A9923C1E2D3958540020910A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		A9923C202D3959070020910A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9B784442D28F340000EF282 /* LoginVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVM.swift; sourceTree = "<group>"; };
 		A9E068242D284EC9004342E2 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A960B2462D9F0042003F7F1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A96CB02B2D21A291003E72F6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -132,6 +159,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A960B24A2D9F0042003F7F1C /* XPCService */ = {
+			isa = PBXGroup;
+			children = (
+				A960B24B2D9F0042003F7F1C /* XPCService.swift */,
+				A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */,
+				A960B24F2D9F0042003F7F1C /* main.swift */,
+				A960B2512D9F0042003F7F1C /* Info.plist */,
+				A960B2522D9F0042003F7F1C /* XPCService.entitlements */,
+			);
+			path = XPCService;
+			sourceTree = "<group>";
+		};
 		A96CB0252D21A291003E72F6 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +179,7 @@
 				A96CB0472D21A293003E72F6 /* DriveSea 3Tests */,
 				A96CB0512D21A293003E72F6 /* DriveSea 3UITests */,
 				A9923C0D2D3950800020910A /* DriveSea Finder Connector */,
+				A960B24A2D9F0042003F7F1C /* XPCService */,
 				A96CB02F2D21A291003E72F6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -151,6 +191,7 @@
 				A96CB0442D21A293003E72F6 /* DriveSea 3Tests.xctest */,
 				A96CB04E2D21A293003E72F6 /* DriveSea 3UITests.xctest */,
 				A9923C0C2D3950800020910A /* DriveSea Finder Connector.appex */,
+				A960B2492D9F0042003F7F1C /* XPCService.xpc */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,7 +199,6 @@
 		A96CB0302D21A291003E72F6 /* DriveSea 3 */ = {
 			isa = PBXGroup;
 			children = (
-				A9923C192D3950B90020910A /* XPCService */,
 				A96CB0312D21A291003E72F6 /* DriveSea_3App.swift */,
 				A96CB0332D21A291003E72F6 /* LoginView.swift */,
 				A9B784442D28F340000EF282 /* LoginVM.swift */,
@@ -210,17 +250,6 @@
 			path = "DriveSea Finder Connector";
 			sourceTree = "<group>";
 		};
-		A9923C192D3950B90020910A /* XPCService */ = {
-			isa = PBXGroup;
-			children = (
-				A9923C1E2D3958540020910A /* main.swift */,
-				A9923C1A2D3951060020910A /* XPCService.swift */,
-				A9923C1C2D3952A70020910A /* Protocols.swift */,
-				A9923C202D3959070020910A /* Info.plist */,
-			);
-			path = XPCService;
-			sourceTree = "<group>";
-		};
 		A9E068232D284EA9004342E2 /* i18n */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +261,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A960B2482D9F0042003F7F1C /* XPCService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A960B2592D9F0042003F7F1C /* Build configuration list for PBXNativeTarget "XPCService" */;
+			buildPhases = (
+				A960B2452D9F0042003F7F1C /* Sources */,
+				A960B2462D9F0042003F7F1C /* Frameworks */,
+				A960B2472D9F0042003F7F1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = XPCService;
+			productName = XPCService;
+			productReference = A960B2492D9F0042003F7F1C /* XPCService.xpc */;
+			productType = "com.apple.product-type.xpc-service";
+		};
 		A96CB02D2D21A291003E72F6 /* DriveSea 3 */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A96CB0582D21A293003E72F6 /* Build configuration list for PBXNativeTarget "DriveSea 3" */;
@@ -240,11 +286,13 @@
 				A96CB02B2D21A291003E72F6 /* Frameworks */,
 				A96CB02C2D21A291003E72F6 /* Resources */,
 				A9923C152D3950800020910A /* Embed Foundation Extensions */,
+				A960B2562D9F0042003F7F1C /* Embed XPC Services */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				A9923C132D3950800020910A /* PBXTargetDependency */,
+				A960B2542D9F0042003F7F1C /* PBXTargetDependency */,
 			);
 			name = "DriveSea 3";
 			packageProductDependencies = (
@@ -317,6 +365,9 @@
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					A960B2482D9F0042003F7F1C = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					A96CB02D2D21A291003E72F6 = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -354,16 +405,23 @@
 				A96CB0432D21A293003E72F6 /* DriveSea 3Tests */,
 				A96CB04D2D21A293003E72F6 /* DriveSea 3UITests */,
 				A9923C0B2D3950800020910A /* DriveSea Finder Connector */,
+				A960B2482D9F0042003F7F1C /* XPCService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A960B2472D9F0042003F7F1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A96CB02C2D21A291003E72F6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9923C212D3959070020910A /* Info.plist in Resources */,
 				A96CB0392D21A292003E72F6 /* Preview Assets.xcassets in Resources */,
 				A96CB0362D21A292003E72F6 /* Assets.xcassets in Resources */,
 				A9E068252D284EC9004342E2 /* Localizable.xcstrings in Resources */,
@@ -394,6 +452,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A960B2452D9F0042003F7F1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A960B24C2D9F0042003F7F1C /* XPCService.swift in Sources */,
+				A960B24E2D9F0042003F7F1C /* XPCServiceProtocol.swift in Sources */,
+				A960B2502D9F0042003F7F1C /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A96CB02A2D21A291003E72F6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -401,11 +469,8 @@
 				A9614C2D2D29929B0078D1AB /* DataStruct.swift in Sources */,
 				A96CB03E2D21A292003E72F6 /* DriveSea_3.xcdatamodeld in Sources */,
 				A9614C2B2D2982F30078D1AB /* NetworkManager.swift in Sources */,
-				A9923C1B2D3951060020910A /* XPCService.swift in Sources */,
-				A9923C1D2D3952A70020910A /* Protocols.swift in Sources */,
 				A97F28B72D2D2B7800F40A70 /* Protocols.swift in Sources */,
 				A96CB03B2D21A292003E72F6 /* Persistence.swift in Sources */,
-				A9923C1F2D3958540020910A /* main.swift in Sources */,
 				A96CB0342D21A291003E72F6 /* LoginView.swift in Sources */,
 				A96CB0322D21A291003E72F6 /* DriveSea_3App.swift in Sources */,
 				A9B784452D28F340000EF282 /* LoginVM.swift in Sources */,
@@ -441,6 +506,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A960B2542D9F0042003F7F1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A960B2482D9F0042003F7F1C /* XPCService */;
+			targetProxy = A960B2532D9F0042003F7F1C /* PBXContainerItemProxy */;
+		};
 		A96CB0462D21A293003E72F6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A96CB02D2D21A291003E72F6 /* DriveSea 3 */;
@@ -459,6 +529,52 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		A960B2572D9F0042003F7F1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = XPCService/XPCService.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BX9QJ67C68;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = XPCService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = XPCService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.felixwither.XPCService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A960B2582D9F0042003F7F1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = XPCService/XPCService.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BX9QJ67C68;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = XPCService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = XPCService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.felixwither.XPCService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		A96CB0562D21A293003E72F6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -642,7 +758,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BX9QJ67C68;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.felixwither.DriveSea-3Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -661,7 +777,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BX9QJ67C68;
 				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.felixwither.DriveSea-3Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -723,7 +839,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.felixwither.DriveSea-3.DriveSea-Finder-Connector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -751,7 +867,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.felixwither.DriveSea-3.DriveSea-Finder-Connector";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -764,6 +880,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A960B2592D9F0042003F7F1C /* Build configuration list for PBXNativeTarget "XPCService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A960B2572D9F0042003F7F1C /* Debug */,
+				A960B2582D9F0042003F7F1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A96CB0292D21A291003E72F6 /* Build configuration list for PBXProject "DriveSea 3" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
