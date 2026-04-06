@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A90B8A9E2F840F5100BD5B6D /* SeafileFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B8A9D2F840F5100BD5B6D /* SeafileFS.swift */; };
+		A90B8A9F2F8410A500BD5B6D /* macFUSE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A90B8A992F840F4400BD5B6D /* macFUSE.framework */; };
 		A960B24C2D9F0042003F7F1C /* XPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24B2D9F0042003F7F1C /* XPCService.swift */; };
 		A960B24E2D9F0042003F7F1C /* XPCServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */; };
 		A960B2502D9F0042003F7F1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24F2D9F0042003F7F1C /* main.swift */; };
@@ -88,6 +90,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A90B8A992F840F4400BD5B6D /* macFUSE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = macFUSE.framework; path = ../../../Library/Frameworks/macFUSE.framework; sourceTree = "<group>"; };
+		A90B8A9D2F840F5100BD5B6D /* SeafileFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeafileFS.swift; sourceTree = "<group>"; };
+		A90B8AA22F84111C00BD5B6D /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		A960B2492D9F0042003F7F1C /* XPCService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = XPCService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		A960B24B2D9F0042003F7F1C /* XPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCService.swift; sourceTree = "<group>"; };
 		A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCServiceProtocol.swift; sourceTree = "<group>"; };
@@ -132,6 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9B784482D28F39D000EF282 /* Alamofire in Frameworks */,
+				A90B8A9F2F8410A500BD5B6D /* macFUSE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +165,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A90B8A982F840F4400BD5B6D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A90B8A992F840F4400BD5B6D /* macFUSE.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A960B24A2D9F0042003F7F1C /* XPCService */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +195,7 @@
 				A9923C0D2D3950800020910A /* DriveSea Finder Connector */,
 				A960B24A2D9F0042003F7F1C /* XPCService */,
 				A96CB02F2D21A291003E72F6 /* Products */,
+				A90B8A982F840F4400BD5B6D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -211,6 +226,8 @@
 				A96CB03F2D21A292003E72F6 /* DriveSea_3.entitlements */,
 				A96CB03C2D21A292003E72F6 /* DriveSea_3.xcdatamodeld */,
 				A96CB0372D21A292003E72F6 /* Preview Content */,
+				A90B8A9D2F840F5100BD5B6D /* SeafileFS.swift */,
+				A90B8AA22F84111C00BD5B6D /* Bridging-Header.h */,
 			);
 			path = "DriveSea 3";
 			sourceTree = "<group>";
@@ -466,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A90B8A9E2F840F5100BD5B6D /* SeafileFS.swift in Sources */,
 				A9614C2D2D29929B0078D1AB /* DataStruct.swift in Sources */,
 				A96CB03E2D21A292003E72F6 /* DriveSea_3.xcdatamodeld in Sources */,
 				A9614C2B2D2982F30078D1AB /* NetworkManager.swift in Sources */,
@@ -707,6 +725,10 @@
 				DEVELOPMENT_TEAM = BX9QJ67C68;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -717,6 +739,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.felixwither.DriveSea-3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DriveSea 3/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -735,6 +758,10 @@
 				DEVELOPMENT_TEAM = BX9QJ67C68;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -745,6 +772,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.felixwither.DriveSea-3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "DriveSea 3/Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
