@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A90B8A9E2F840F5100BD5B6D /* SeafileFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B8A9D2F840F5100BD5B6D /* SeafileFS.swift */; };
 		A90B8A9F2F8410A500BD5B6D /* macFUSE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A90B8A992F840F4400BD5B6D /* macFUSE.framework */; };
+		A90B8AA42F842CDC00BD5B6D /* NSError+POSIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B8AA32F842CDC00BD5B6D /* NSError+POSIX.swift */; };
 		A960B24C2D9F0042003F7F1C /* XPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24B2D9F0042003F7F1C /* XPCService.swift */; };
 		A960B24E2D9F0042003F7F1C /* XPCServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */; };
 		A960B2502D9F0042003F7F1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24F2D9F0042003F7F1C /* main.swift */; };
@@ -93,6 +94,7 @@
 		A90B8A992F840F4400BD5B6D /* macFUSE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = macFUSE.framework; path = ../../../Library/Frameworks/macFUSE.framework; sourceTree = "<group>"; };
 		A90B8A9D2F840F5100BD5B6D /* SeafileFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeafileFS.swift; sourceTree = "<group>"; };
 		A90B8AA22F84111C00BD5B6D /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		A90B8AA32F842CDC00BD5B6D /* NSError+POSIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+POSIX.swift"; sourceTree = "<group>"; };
 		A960B2492D9F0042003F7F1C /* XPCService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = XPCService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		A960B24B2D9F0042003F7F1C /* XPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCService.swift; sourceTree = "<group>"; };
 		A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCServiceProtocol.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				A96CB03C2D21A292003E72F6 /* DriveSea_3.xcdatamodeld */,
 				A96CB0372D21A292003E72F6 /* Preview Content */,
 				A90B8A9D2F840F5100BD5B6D /* SeafileFS.swift */,
+				A90B8AA32F842CDC00BD5B6D /* NSError+POSIX.swift */,
 				A90B8AA22F84111C00BD5B6D /* Bridging-Header.h */,
 			);
 			path = "DriveSea 3";
@@ -493,6 +496,7 @@
 				A96CB0322D21A291003E72F6 /* DriveSea_3App.swift in Sources */,
 				A9B784452D28F340000EF282 /* LoginVM.swift in Sources */,
 				A9614C2F2D29937F0078D1AB /* NetworkAPI.swift in Sources */,
+				A90B8AA42F842CDC00BD5B6D /* NSError+POSIX.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
