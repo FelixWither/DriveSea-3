@@ -38,5 +38,13 @@ struct DriveSea_3App: App {
 				}
 			}
 		}
+		.commands{
+			CommandMenu("DriveSea"){
+				Button("挂载卷") {MountController.shared.mount(at: "/Volumes/Ramdisk/test")}
+					.keyboardShortcut("m", modifiers: [.command, .shift])
+				Button("卸载卷") {MountController.shared.unmount()}
+					.keyboardShortcut("m", modifiers: [.command, .shift])
+			}
+		}
 	}
 }
