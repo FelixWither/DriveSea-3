@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AppKit
 
 final class MountController {
 	static let shared = MountController()      // Singleton
@@ -18,16 +19,6 @@ final class MountController {
 											   queue: .main,
 											   using: {_ in MountController.shared.unmount()})
 		
-		// Unmount is asynchronous: pending FUSE requests are still dispatched to
-		// the delegate while the loop is winding down, so release lazily here.
-		
-		NotificationCenter.default.addObserver(forName: Notification.Name(kGMUserFileSystemDidUnmount), 
-											   object: self.volume,
-											   queue: .main) {_ in
-													self.volume = nil
-													self.fs = nil
-													NSLog("[DriveSea] unmount finished, references released")
-											}
 	}
 	
 	func unmount(){
@@ -48,5 +39,16 @@ final class MountController {
 				  detachNewThread: true)
 		self.volume = vol
 		self.fs = fs
+		
+		// Unmount is asynchronous: pending FUSE requests are still dispatched to
+		// the delegate while the loop is winding down, so release lazily here.
+		
+		NotificationCenter.default.addObserver(forName: Notification.Name(kGMUserFileSystemDidUnmount),
+											   object: self.volume,
+											   queue: .main) {_ in
+													self.volume = nil
+													self.fs = nil
+													NSLog("[DriveSea] unmount finished, references released")
+											}
 	}
 }

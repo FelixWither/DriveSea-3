@@ -10,6 +10,7 @@
 		A90B8A9E2F840F5100BD5B6D /* SeafileFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B8A9D2F840F5100BD5B6D /* SeafileFS.swift */; };
 		A90B8A9F2F8410A500BD5B6D /* macFUSE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A90B8A992F840F4400BD5B6D /* macFUSE.framework */; };
 		A90B8AA42F842CDC00BD5B6D /* NSError+POSIX.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90B8AA32F842CDC00BD5B6D /* NSError+POSIX.swift */; };
+		A94DBB9230ADF99F001808A0 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A94DBB9130ADF99F001808A0 /* SessionStore.swift */; };
 		A960B24C2D9F0042003F7F1C /* XPCService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24B2D9F0042003F7F1C /* XPCService.swift */; };
 		A960B24E2D9F0042003F7F1C /* XPCServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */; };
 		A960B2502D9F0042003F7F1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A960B24F2D9F0042003F7F1C /* main.swift */; };
@@ -97,6 +98,7 @@
 		A90B8A9D2F840F5100BD5B6D /* SeafileFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeafileFS.swift; sourceTree = "<group>"; };
 		A90B8AA22F84111C00BD5B6D /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		A90B8AA32F842CDC00BD5B6D /* NSError+POSIX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSError+POSIX.swift"; sourceTree = "<group>"; };
+		A94DBB9130ADF99F001808A0 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		A960B2492D9F0042003F7F1C /* XPCService.xpc */ = {isa = PBXFileReference; explicitFileType = "wrapper.xpc-service"; includeInIndex = 0; path = XPCService.xpc; sourceTree = BUILT_PRODUCTS_DIR; };
 		A960B24B2D9F0042003F7F1C /* XPCService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCService.swift; sourceTree = "<group>"; };
 		A960B24D2D9F0042003F7F1C /* XPCServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCServiceProtocol.swift; sourceTree = "<group>"; };
@@ -179,6 +181,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A94DBB9030ADF983001808A0 /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				A94DBB9130ADF99F001808A0 /* SessionStore.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
 		A960B24A2D9F0042003F7F1C /* XPCService */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +230,7 @@
 		A96CB0302D21A291003E72F6 /* DriveSea 3 */ = {
 			isa = PBXGroup;
 			children = (
+				A94DBB9030ADF983001808A0 /* Remote */,
 				A96CB0312D21A291003E72F6 /* DriveSea_3App.swift */,
 				A96CB0332D21A291003E72F6 /* LoginView.swift */,
 				A9B784442D28F340000EF282 /* LoginVM.swift */,
@@ -500,6 +511,7 @@
 				A97F28B72D2D2B7800F40A70 /* Protocols.swift in Sources */,
 				A96CB03B2D21A292003E72F6 /* Persistence.swift in Sources */,
 				A96CB0342D21A291003E72F6 /* LoginView.swift in Sources */,
+				A94DBB9230ADF99F001808A0 /* SessionStore.swift in Sources */,
 				A96C128730AB713E0022A509 /* SeafFS.swift in Sources */,
 				A96CB0322D21A291003E72F6 /* DriveSea_3App.swift in Sources */,
 				A9B784452D28F340000EF282 /* LoginVM.swift in Sources */,

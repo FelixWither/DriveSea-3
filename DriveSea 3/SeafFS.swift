@@ -15,6 +15,8 @@ final class SeafFS: NSObject {
 			var attrs: [AnyHashable: Any] = [:]
 			attrs[FileAttributeKey.type] = FileAttributeType.typeDirectory
 			attrs[FileAttributeKey.modificationDate] = Date()
+			attrs[FileAttributeKey.posixPermissions] = NSNumber(value: 0o755)
+			attrs[FileAttributeKey.size] = NSNumber(value: 0)
 			return attrs
 		}
 		throw NSError(posixErrorCode: ENOENT)

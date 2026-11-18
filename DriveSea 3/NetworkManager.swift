@@ -64,7 +64,7 @@ class NetworkManager {
 		return AF.request(url,
 						  method: .get,
 						  parameters: parameters,
-						  encoding: JSONEncoding.default,
+						  encoding: URLEncoding.default,
 						  headers: headers)
 			.validate()
 			.responseDecodable(of: LibraryList.self) { [weak self] response in
