@@ -11,10 +11,12 @@ import Alamofire
 typealias NetworkRequestResult = Result<Data, Error>
 typealias NetworkRequestCompletion = (NetworkRequestResult) -> Void
 typealias LibraryList = [LibraryInfo]
+typealias DirList = [DirInfo]
 
 private let baseURL = "http://192.168.0.200:8000/api2/"
 private let getToken = "auth-token/"
 private let getLibraries = "repos/"
+private let getDirs = "dir/"
 
 enum LibraryType: String {
 	case mine = "mine"
@@ -58,8 +60,7 @@ class NetworkManager {
 		// If listing for other libraries, set parameters to ["type": "mine"] or others
 		let parameters = libType == .all ? nil : ["type": libType.rawValue]
 		
-		let headers: HTTPHeaders = ["Authorization": "Token \(credential)",
-									"Accept": "application/json"]
+		let headers = ConstructHeader(for: credential)
 		
 		return AF.request(url,
 						  method: .get,
@@ -71,6 +72,29 @@ class NetworkManager {
 				guard let self = self else { return }
 				self.APISuccessCheck(response, completion: completion)
 		}
+	}
+	
+	@discardableResult
+	func listDirs (for repoUUID: String, credential: String, completion: @escaping NetworkRequestCompletion) -> DataRequest {
+		let url = baseURL + getLibraries + repoUUID + "/" + getDirs
+		let parameters = ["p": "/"]
+		let headers = ConstructHeader(for: credential)
+		
+		return AF.request(url,
+						  method: .get,
+						  parameters: parameters,
+						  encoding: URLEncoding.queryString,
+						  headers: headers)
+			.validate() // Automatically checks HTTP response status codes
+			.responseDecodable(of: DirList.self) { [weak self] response in
+				guard let self = self else { return }
+				self.APISuccessCheck(response, completion: completion)
+		}
+	}
+	
+	//MARK: Header former
+	private func ConstructHeader (for credential: String) -> HTTPHeaders {
+		return ["Authorization": "Token \(credential)", "Accept": "application/json"]
 	}
 	
 	//MARK: - General API success check

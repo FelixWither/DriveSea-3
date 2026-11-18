@@ -35,7 +35,8 @@ class LoginViewModel: ObservableObject {
 					self.loginStatus = NSLocalizedString("Login_Failed_No_Token", comment: "")
 					return
 				}
-				self.fetchLibraries(for: .all, credential: token)
+//				self.fetchLibraries(for: .all, credential: token)
+				self.fetchDirs(for: "dummyVal", credential: token)
 			case .failure(let error):
 				displayLoginError(error)
 			}
@@ -51,6 +52,20 @@ class LoginViewModel: ObservableObject {
 				self.loginStatus = String(format: NSLocalizedString("Login_Success_Message", comment: ""),
 										   NSLocalizedString("Login_Success", comment: ""),
 										  "Libraries: \(libList.count)")
+			case .failure(let error):
+				displayLoginError(error)
+			}
+		}
+	}
+	
+	private func fetchDirs(for repoUUID: String, credential: String) {
+		NetworkAPI.ListDirs(for: repoUUID, credential: credential) { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let dirList):
+				self.loginStatus = String(format: NSLocalizedString("Login_Success_Message", comment: ""),
+										   NSLocalizedString("Login_Success", comment: ""),
+										  "Dirs: \(dirList.count)")
 			case .failure(let error):
 				displayLoginError(error)
 			}

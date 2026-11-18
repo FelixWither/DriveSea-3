@@ -67,3 +67,12 @@ struct LibraryInfo: Codable {
 		case isAdmin = "is_admin"
 	}
 }
+
+struct DirInfo: Decodable {
+	let type: String        // "file" / "dir"
+	let name: String
+	let id: String          // file id / dir 对象 id（P2 缓存 key 用它）
+	let size: Int64?        // 只有文件有
+	let mtime: Int64?       // Unix 秒
+	let permission: String? // P4 写权限判断用
+}

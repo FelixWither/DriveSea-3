@@ -24,6 +24,12 @@ class NetworkAPI{
 		}
 	}
 	
+	static func ListDirs(for repoUUID: String, credential:String, completion: @escaping (Result<DirList, Error>) -> Void) {
+		NetworkManager.shared.listDirs(for: repoUUID, credential: credential) { result in
+			HandleResult(result, completion: completion)
+		}
+	}
+	
 	private static func HandleResult <T: Decodable>(_ result: NetworkRequestResult, completion: @escaping DecodedResultHandler<T>) {
 		switch result{
 		case let .success(data):
