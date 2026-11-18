@@ -40,13 +40,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cannot connect to host."
+            "value" : "[NS] Cannot connect to host."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无法连接到服务器喵～"
+            "value" : "[NS] 无法连接到服务器喵～"
           }
         }
       }
@@ -56,13 +56,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Cannot find host."
+            "value" : "[NS] Cannot find host."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无法找到服务器喵～"
+            "value" : "[NS] 无法找到服务器喵～"
           }
         }
       }
@@ -72,13 +72,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Connection timed out."
+            "value" : "[NS] Connection timed out."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "连接超时喵～"
+            "value" : "[NS] 连接超时喵～"
           }
         }
       }
@@ -104,13 +104,30 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Data network access is not allowed."
+            "value" : "[NS] Data network access is not allowed."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主人还没允许我使用数据流量喵～"
+            "value" : "[NS] 主人还没允许我使用数据流量喵～"
+          }
+        }
+      }
+    },
+    "DecodeFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[NS] Decode failed. Corrupted data received or server API not match."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "[NS] 解码失败. 收到的响应数据损坏或服务器API不匹配"
           }
         }
       }
@@ -303,13 +320,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "International roaming is not on."
+            "value" : "[NS] International roaming is not on."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "主人还没打开国际漫游喵～"
+            "value" : "[NS] 主人还没打开国际漫游喵～"
           }
         }
       }
@@ -432,13 +449,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Network connection is lost."
+            "value" : "[NS] Network connection is lost."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "连接丢失喵～"
+            "value" : "[NS] 连接丢失喵～"
           }
         }
       }
@@ -448,13 +465,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No connection to Internet."
+            "value" : "[NS] No connection to Internet."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无法连接到互联网喵～"
+            "value" : "[NS] 无法连接到互联网喵～"
           }
         }
       }

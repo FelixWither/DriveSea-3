@@ -155,6 +155,8 @@ class NetworkManager {
 				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("CannotConnectToHost", comment: "")
 			case NSURLErrorNetworkConnectionLost:
 				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("NetworkConnectionLost", comment: "")
+			case NSCoderReadCorruptError:
+				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("DecodeFailed", comment: "")
 			default:
 				userInfo[NSLocalizedDescriptionKey] = String(format: NSLocalizedString("OtherNetworkError", comment: ""),
 															 NSLocalizedString("UnknownError", comment: ""),
