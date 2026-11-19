@@ -10,22 +10,11 @@ import Alamofire
 
 typealias NetworkRequestResult = Result<Data, Error>
 typealias NetworkRequestCompletion = (NetworkRequestResult) -> Void
-typealias LibraryList = [LibraryInfo]
-typealias DirList = [DirInfo]
 
 private let baseURL = "http://192.168.0.200:8000/api2/"
 private let getToken = "auth-token/"
 private let getLibraries = "repos/"
 private let getDirs = "dir/"
-
-enum LibraryType: String {
-	case mine = "mine"
-	case shared = "shared"
-	case group = "group"
-	case org = "org"
-	case all
-}
-
 
 class NetworkManager {
 	//MARK: - Create Shared Instance
@@ -92,7 +81,7 @@ class NetworkManager {
 		}
 	}
 	
-	//MARK: Header former
+	//MARK: - Header former
 	private func ConstructHeader (for credential: String) -> HTTPHeaders {
 		return ["Authorization": "Token \(credential)", "Accept": "application/json"]
 	}
@@ -141,6 +130,7 @@ class NetworkManager {
 			var userInfo = nserror.userInfo
 			
 			switch code {
+			//MARK: - Network related
 			case NSURLErrorNotConnectedToInternet:
 				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("NotConnectedToInternet", comment: "")
 			case NSURLErrorTimedOut:
@@ -155,6 +145,7 @@ class NetworkManager {
 				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("CannotConnectToHost", comment: "")
 			case NSURLErrorNetworkConnectionLost:
 				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("NetworkConnectionLost", comment: "")
+			//MARK: - Other
 			case NSCoderReadCorruptError:
 				userInfo[NSLocalizedDescriptionKey] = NSLocalizedString("DecodeFailed", comment: "")
 			default:

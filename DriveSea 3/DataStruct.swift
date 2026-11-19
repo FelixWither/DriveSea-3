@@ -68,6 +68,14 @@ struct LibraryInfo: Codable {
 	}
 }
 
+enum LibraryType: String {
+	case mine = "mine"
+	case shared = "shared"
+	case group = "group"
+	case org = "org"
+	case all
+}
+
 struct DirInfo: Decodable {
 	let type: String        // "file" / "dir"
 	let name: String
@@ -76,3 +84,6 @@ struct DirInfo: Decodable {
 	let mtime: Int64?       // Unix 秒
 	let permission: String? // P4 写权限判断用
 }
+
+typealias LibraryList = [LibraryInfo]
+typealias DirList = [DirInfo]
