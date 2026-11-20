@@ -64,9 +64,9 @@ class NetworkManager {
 	}
 	
 	@discardableResult
-	func listDirs (for repoUUID: String, credential: String, completion: @escaping NetworkRequestCompletion) -> DataRequest {
+	func listDirs (for repoUUID: String, path: String, credential: String, completion: @escaping NetworkRequestCompletion) -> DataRequest {
 		let url = baseURL + getLibraries + repoUUID + "/" + getDirs
-		let parameters = ["p": "/"]
+		let parameters = ["p": path]
 		let headers = ConstructHeader(for: credential)
 		
 		return AF.request(url,

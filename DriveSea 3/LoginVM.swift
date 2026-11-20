@@ -36,7 +36,7 @@ class LoginViewModel: ObservableObject {
 					return
 				}
 //				self.fetchLibraries(for: .all, credential: token)
-				self.fetchDirs(for: "dummyVal", credential: token)
+				self.fetchDirs(for: "dummyVal", path: "/", credential: token)
 			case .failure(let error):
 				displayLoginError(error)
 			}
@@ -58,8 +58,8 @@ class LoginViewModel: ObservableObject {
 		}
 	}
 	
-	private func fetchDirs(for repoUUID: String, credential: String) {
-		NetworkAPI.ListDirs(for: repoUUID, credential: credential) { [weak self] result in
+	private func fetchDirs(for repoUUID: String, path: String, credential: String) {
+		NetworkAPI.ListDirs(for: repoUUID, path: path, credential: credential) { [weak self] result in
 			guard let self = self else { return }
 			switch result {
 			case .success(let dirList):

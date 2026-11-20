@@ -24,8 +24,8 @@ class NetworkAPI{
 		}
 	}
 	
-	static func ListDirs(for repoUUID: String, credential:String, completion: @escaping (Result<DirList, Error>) -> Void) {
-		NetworkManager.shared.listDirs(for: repoUUID, credential: credential) { result in
+	static func ListDirs(for repoUUID: String, path: String, credential:String, completion: @escaping (Result<DirList, Error>) -> Void) {
+		NetworkManager.shared.listDirs(for: repoUUID, path: path, credential: credential) { result in
 			HandleResult(result, completion: completion)
 		}
 	}

@@ -19,6 +19,17 @@ final class MountController {
 											   queue: .main,
 											   using: {_ in MountController.shared.unmount()})
 		
+		// Unmount is asynchronous: pending FUSE requests are still dispatched to
+		// the delegate while the loop is winding down, so release lazily here.
+		
+		NotificationCenter.default.addObserver(forName: Notification.Name(kGMUserFileSystemDidUnmount),
+											   object: nil,
+											   queue: .main) {_ in
+													self.volume = nil
+													self.fs = nil
+													NSLog("[DriveSea] unmount finished, references released")
+											}
+		
 	}
 	
 	func unmount(){
@@ -37,18 +48,12 @@ final class MountController {
 				  withOptions: ["volname=DriveSea", "local", "auto_xattr", "debug"],
 				  shouldForeground: true,
 				  detachNewThread: true)
+		
+		// fs: SeafFS
+		// Adding a pointer to vol so we can trigger refresh ("Invalidate")
+		fs.volume = vol
+		
 		self.volume = vol
 		self.fs = fs
-		
-		// Unmount is asynchronous: pending FUSE requests are still dispatched to
-		// the delegate while the loop is winding down, so release lazily here.
-		
-		NotificationCenter.default.addObserver(forName: Notification.Name(kGMUserFileSystemDidUnmount),
-											   object: self.volume,
-											   queue: .main) {_ in
-													self.volume = nil
-													self.fs = nil
-													NSLog("[DriveSea] unmount finished, references released")
-											}
 	}
 }
