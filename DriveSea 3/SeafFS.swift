@@ -38,23 +38,92 @@ final class SeafFS: NSObject {
 		// Normalize the String, see Wiki
 	}
 	
-	private func scheduleFetch(_ p: String) {
-		//TODO: Fill
+	private func libraryType(forGroup groupName: String) -> LibraryType? {
+		switch groupName {
+		case "My Libraries":       return .mine
+		case "Shared with me":     return .shared
+		case "Shared with groups": return .group
+		default:                   return nil
+		}
+	}
+	
+	private func finishLoading(_ path: String) {
+		lock.lock()
+		loading.remove(path)
+		lock.unlock()
+	}
+	
+	private func storeLibraries (_ libraries: [LibraryInfo], underGroup groupName: String) {
+		// TODO: Fill
+	}
+	
+	private func resolveRepository () {
+		// TODO: Fill
+	}
+	
+	private func scheduleFetch(_ path: String) {
+		let credential = SessionStore.shared.token ?? ""
+		
+		if let libraryType = libraryType(forGroup: path) {
+			NetworkAPI.ListLibraries(for: libraryType, credential: credential) { [weak self] result in
+				guard let self else { return }
+				defer { self.finishLoading(path) }
+
+				switch result {
+				case .success(let libraries):
+					self.storeLibraries(libraries, underGroup: path)
+				case .failure(let error):
+					NSLog("[DriveSea] listLibraries %@ failed: %@", path, String(describing: error))
+					// TODO: Move log info into i18n file
+				}
+			}
+			return
+		}
+		
+		//TODO: Finish the load logic for directories in repo
+	}
+	
+	private func dirAttrs() -> [AnyHashable: Any]{
+		var attrs: [AnyHashable: Any] = [:]
+		attrs[FileAttributeKey.type] = FileAttributeType.typeDirectory
+		attrs[FileAttributeKey.modificationDate] = Date()
+		attrs[FileAttributeKey.posixPermissions] = NSNumber(value: 0o755)
+		attrs[FileAttributeKey.size] = NSNumber(value: 0)
+		return attrs
+	}
+	
+	private func fileAttrs(of entry: DirInfo) -> [AnyHashable: Any]{
+		var attrs: [AnyHashable: Any] = [:]
+		attrs[FileAttributeKey.type] = FileAttributeType.typeRegular
+		attrs[FileAttributeKey.posixPermissions] = NSNumber(value: 0o644)
+		attrs[FileAttributeKey.size] = NSNumber(value: entry.size ?? 0)
+		attrs[FileAttributeKey.modificationDate] = Date(timeIntervalSince1970: TimeInterval(entry.mtime ?? 0))
+		return attrs
 	}
 	
 	// MARK: - Overriding FS operations
 	
 	override func attributesOfItem(atPath path: String!, userData: Any!) throws -> [AnyHashable: Any] {
-		// 根目录给一个目录属性，其他一律 ENOENT —— 先让 Finder 肯进卷
-		if path.isEmpty || path == "/" {
-			var attrs: [AnyHashable: Any] = [:]
-			attrs[FileAttributeKey.type] = FileAttributeType.typeDirectory
-			attrs[FileAttributeKey.modificationDate] = Date()
-			attrs[FileAttributeKey.posixPermissions] = NSNumber(value: 0o755)
-			attrs[FileAttributeKey.size] = NSNumber(value: 0)
-			return attrs
+		let path = normalizeKey(path)
+
+		if path.isEmpty || ["My Libraries", "Shared with me", "Shared with groups"].contains(path) {
+			return dirAttrs()
 		}
-		throw NSError(posixErrorCode: ENOENT)
+
+		lock.lock()
+		let entry = entryCache[path]
+		lock.unlock()
+
+		guard let entry else { let parent = (path as NSString).deletingLastPathComponent
+			lock.lock()
+			let shouldFetch = !loading.contains(parent)
+			if shouldFetch { loading.insert(parent) }
+			lock.unlock()
+			if shouldFetch { scheduleFetch(parent) }
+			throw NSError(posixErrorCode: ENOENT)
+		}
+
+		return entry.type == "dir" ? dirAttrs() : fileAttrs(of: entry)
 	}
 
 	override func contentsOfDirectory(atPath path: String!) throws -> [Any] {
