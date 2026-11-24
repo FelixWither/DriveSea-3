@@ -30,12 +30,22 @@ final class SeafFS: NSObject {
 	var volume: GMUserFileSystem?
 	// For assigning a pointer to volume, so we can trigger refresh.
 	
+	private static let systemProbeNames: Set<String> = [
+		".Trashes", ".fseventsd", ".Spotlight-V100", ".TemporaryItems",
+		".DS_Store", ".localized", ".hidden", ".VolumeIcon.icns", ".background"
+	]
+	
 	// MARK: - Private helper functions
 	private func normalizeKey(_ path: String?) -> String {
 		let p = (path ?? "").trimmingCharacters(in: CharacterSet(charactersIn: "/"))
 		// Remove the "/" at the both ends of String
 		return p.precomposedStringWithCanonicalMapping
 		// Normalize the String, see Wiki
+	}
+	
+	private func isSystemProbe(_ path: String) -> Bool {
+		guard let name = path.split(separator: "/").last.map(String.init) else { return false }
+		return Self.systemProbeNames.contains(name) || name.hasPrefix("._")
 	}
 	
 	private func libraryType(forGroup groupName: String) -> LibraryType? {
@@ -79,6 +89,7 @@ final class SeafFS: NSObject {
 			}
 			return
 		}
+		NSLog("%@ -> %@", path, String(describing: libraryType(forGroup: path)))
 		
 		//TODO: Finish the load logic for directories in repo
 	}
@@ -105,6 +116,7 @@ final class SeafFS: NSObject {
 	
 	override func attributesOfItem(atPath path: String!, userData: Any!) throws -> [AnyHashable: Any] {
 		let path = normalizeKey(path)
+		if isSystemProbe(path) { throw NSError(posixErrorCode: ENOENT) }
 
 		if path.isEmpty || ["My Libraries", "Shared with me", "Shared with groups"].contains(path) {
 			return dirAttrs()
