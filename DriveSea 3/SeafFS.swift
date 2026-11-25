@@ -43,6 +43,10 @@ final class SeafFS: NSObject {
 		// Normalize the String, see Wiki
 	}
 	
+	private func fullPath(of name: String, under path: String) -> String {
+		path.isEmpty ? name : path + "/" + name
+	}
+	
 	private func isSystemProbe(_ path: String) -> Bool {
 		guard let name = path.split(separator: "/").last.map(String.init) else { return false }
 		return Self.systemProbeNames.contains(name) || name.hasPrefix("._")
@@ -63,8 +67,30 @@ final class SeafFS: NSObject {
 		lock.unlock()
 	}
 	
-	private func storeLibraries (_ libraries: [LibraryInfo], underGroup groupName: String) {
-		// TODO: Fill
+	private func storeLibraries (_ libraries: LibraryList, underGroup groupName: String) {
+		var repoNames: [String] = []
+		// dirCache["My Libraries"] → ["PrivateLib", "Shared", "FileSecureVault", ...]
+		// repoNames is for subdirectories, like ["PrivateLib", "Shared", "FileSecureVault", ...]
+
+		lock.lock()
+		for library in libraries {
+			let repoName = library.name
+			repoNames.append(repoName)
+			
+			let entryPath = fullPath(of: repoName, under: groupName)
+			repoIndex[entryPath] = library.id
+			
+			// Directories or Files attribute list under the repo folder
+			entryCache[entryPath] = DirInfo(type: "dir",
+											name: repoName,
+											id: library.id,
+											size: library.size,
+											mtime: library.mtime,
+											permission: library.permission)
+		}
+		// Directories list under the repo folder
+		dirCache[groupName] = repoNames
+		lock.unlock()
 	}
 	
 	private func resolveRepository () {

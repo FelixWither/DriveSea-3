@@ -27,7 +27,7 @@ struct LibraryInfo: Codable {
 	let id: String
 	let permission: String
 	let virtual: Bool?
-	let mtime: Int
+	let mtime: Int64
 	let mtimeRelative: String
 	let encrypted: Bool
 	let version: Int
@@ -36,7 +36,7 @@ struct LibraryInfo: Codable {
 	let type: String
 	let salt: String
 	let sizeFormatted: String
-	let size: Int
+	let size: Int64
 	let groupName: String?
 	let shareType: String?
 	let isAdmin: Bool?
