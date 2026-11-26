@@ -35,6 +35,11 @@ final class SeafFS: NSObject {
 		".DS_Store", ".localized", ".hidden", ".VolumeIcon.icns", ".background"
 	]
 	
+	private struct DirectoryTarget {
+		let repositoryID: String
+		let innerPath: String
+	}
+	
 	// MARK: - Private helper functions
 	private func normalizeKey(_ path: String?) -> String {
 		let p = (path ?? "").trimmingCharacters(in: CharacterSet(charactersIn: "/"))
@@ -67,59 +72,7 @@ final class SeafFS: NSObject {
 		lock.unlock()
 	}
 	
-	private func storeLibraries (_ libraries: LibraryList, underGroup groupName: String) {
-		var repoNames: [String] = []
-		// dirCache["My Libraries"] → ["PrivateLib", "Shared", "FileSecureVault", ...]
-		// repoNames is for subdirectories, like ["PrivateLib", "Shared", "FileSecureVault", ...]
-
-		lock.lock()
-		for library in libraries {
-			let repoName = library.name
-			repoNames.append(repoName)
-			
-			let entryPath = fullPath(of: repoName, under: groupName)
-			repoIndex[entryPath] = library.id
-			
-			// Directories or Files attribute list under the repo folder
-			entryCache[entryPath] = DirInfo(type: "dir",
-											name: repoName,
-											id: library.id,
-											size: library.size,
-											mtime: library.mtime,
-											permission: library.permission)
-		}
-		// Directories list under the repo folder
-		dirCache[groupName] = repoNames
-		lock.unlock()
-	}
-	
-	private func resolveRepository () {
-		// TODO: Fill
-	}
-	
-	private func scheduleFetch(_ path: String) {
-		let credential = SessionStore.shared.token ?? ""
-		
-		if let libraryType = libraryType(forGroup: path) {
-			NetworkAPI.ListLibraries(for: libraryType, credential: credential) { [weak self] result in
-				guard let self else { return }
-				defer { self.finishLoading(path) }
-
-				switch result {
-				case .success(let libraries):
-					self.storeLibraries(libraries, underGroup: path)
-				case .failure(let error):
-					NSLog("[DriveSea] listLibraries %@ failed: %@", path, String(describing: error))
-					// TODO: Move log info into i18n file
-				}
-			}
-			return
-		}
-		NSLog("%@ -> %@", path, String(describing: libraryType(forGroup: path)))
-		
-		//TODO: Finish the load logic for directories in repo
-	}
-	
+	//MARK: - Private helper functions: Populating directory and file attributes
 	private func dirAttrs() -> [AnyHashable: Any]{
 		var attrs: [AnyHashable: Any] = [:]
 		attrs[FileAttributeKey.type] = FileAttributeType.typeDirectory
@@ -138,6 +91,111 @@ final class SeafFS: NSObject {
 		return attrs
 	}
 	
+	//MARK: - Storing libraries, entries
+	private func storeLibraries (_ libraries: LibraryList, underGroup groupName: String) {
+		var repoNames: [String] = []
+		// dirCache["My Libraries"] → ["PrivateLib", "Shared", "FileSecureVault", ...]
+		// repoNames is for subdirectories, like ["PrivateLib", "Shared", "FileSecureVault", ...]
+
+		lock.lock()
+		for library in libraries {
+			let repoName = library.name
+			repoNames.append(repoName)
+			
+			let entryPath = fullPath(of: repoName, under: groupName)
+			repoIndex[entryPath] = library.id
+			
+			// Directories attribute list under the repo folder
+			entryCache[entryPath] = DirInfo(type: "dir",
+											name: repoName,
+											id: library.id,
+											size: library.size,
+											mtime: library.mtime,
+											permission: library.permission)
+		}
+		// Directories list under the repo folder
+		dirCache[groupName] = repoNames
+		lock.unlock()
+		
+		try? volume?.invalidateItem(atPath: groupName)
+	}
+	
+	private func storeEntries (_ entries: [DirInfo], at path: String) {
+		var entryNames: [String] = []
+		
+		lock.lock()
+		for entry in entries {
+			entryNames.append(entry.name)
+			entryCache[fullPath(of: entry.name, under: path)] = entry
+		}
+		dirCache[path] = entryNames
+		lock.unlock()
+		
+		try? volume?.invalidateItem(atPath: path)
+	}
+	
+	// MARK: - Retriving repo UUID from cache for network fetching
+	private func resolveRepository (for path: String) -> DirectoryTarget?{
+		let components = path.split(separator: "/").map(String.init)
+		// Split path into [String]
+		guard components.count >= 2 else { return nil }
+		// Must have more than 2 elements to be enough for fecthing directories
+		// under the repository
+		// e.g. My Libraries/PrivateLib
+		
+		let repositoryPath = components.prefix(2).joined(separator: "/")
+		
+		lock.lock()
+		let repositoryID = repoIndex[repositoryPath]
+		lock.unlock()
+		
+		guard let repositoryID else { return nil }
+		
+		let innerPath = "/" + components.dropFirst(2).joined(separator: "/")
+		
+		return DirectoryTarget(repositoryID: repositoryID, innerPath: innerPath)
+	}
+	
+	//MARK: - Schedule a fetch
+	private func scheduleFetch(_ path: String) {
+		let credential = SessionStore.shared.token ?? ""
+		
+		if let libraryType = libraryType(forGroup: path) {
+			NetworkAPI.ListLibraries(for: libraryType, credential: credential) { [weak self] result in
+				guard let self else { return }
+				defer { self.finishLoading(path) }
+
+				switch result {
+				case .success(let libraries):
+					self.storeLibraries(libraries, underGroup: path)
+				case .failure(let error):
+					NSLog("[DriveSea] listLibraries %@ failed: %@", path, String(describing: error))
+					// TODO: Move log info into i18n file
+				}
+			}
+			return
+		}
+//		NSLog("%@ -> %@", path, String(describing: libraryType(forGroup: path)))
+		
+		guard let target = resolveRepository(for: path) else {
+			NSLog("[DriveSea] cannot resolve repository for %@", path)
+			finishLoading(path)
+			return
+		}
+		
+		NetworkAPI.ListDirs(for: target.repositoryID, path: target.innerPath, credential: credential) { [weak self] result in
+			guard let self else { return }
+			defer { self.finishLoading(path) }
+			
+			switch result {
+			case .success(let entries):
+				self.storeEntries(entries, at: path)
+			case.failure(let error):
+				NSLog("[DriveSea] listDirectories %@ failed: %@", path, String(describing: error))
+			}
+		}
+	}
+	
 	// MARK: - Overriding FS operations
 	
 	override func attributesOfItem(atPath path: String!, userData: Any!) throws -> [AnyHashable: Any] {
@@ -152,7 +210,10 @@ final class SeafFS: NSObject {
 		let entry = entryCache[path]
 		lock.unlock()
 
-		guard let entry else { let parent = (path as NSString).deletingLastPathComponent
+		guard let entry else { 
+			let parent = (path as NSString).deletingLastPathComponent
+			guard !parent.isEmpty else { throw NSError(posixErrorCode: ENOENT) }
+			
 			lock.lock()
 			let shouldFetch = !loading.contains(parent)
 			if shouldFetch { loading.insert(parent) }
