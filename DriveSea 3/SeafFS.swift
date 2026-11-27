@@ -16,7 +16,7 @@ final class SeafFS: NSObject {
 	// repoIndex["My Libraries/Repo_Name"] → repo uuid
 	
 	// Path → Entries under the path
-	private var dirCache: [String: [String]] = [:]
+	private var dirCache: [String: (loadedAt: Date, items: [String])] = [:]
 	// dirCache["My Libraries/PrivateLib"] → ["12315", "Books", "CodeLib", ...]
 	
 	// Path to file → File attributes
@@ -39,6 +39,8 @@ final class SeafFS: NSObject {
 		let repositoryID: String
 		let innerPath: String
 	}
+	
+	private static let cacheLifetime: TimeInterval = 30
 	
 	// MARK: - Private helper functions
 	private func normalizeKey(_ path: String?) -> String {
@@ -114,7 +116,7 @@ final class SeafFS: NSObject {
 											permission: library.permission)
 		}
 		// Directories list under the repo folder
-		dirCache[groupName] = repoNames
+		dirCache[groupName] = (loadedAt: Date(), items: repoNames)
 		lock.unlock()
 		
 		try? volume?.invalidateItem(atPath: groupName)
@@ -128,7 +130,7 @@ final class SeafFS: NSObject {
 			entryNames.append(entry.name)
 			entryCache[fullPath(of: entry.name, under: path)] = entry
 		}
-		dirCache[path] = entryNames
+		dirCache[path] = (loadedAt: Date(), items: entryNames)
 		lock.unlock()
 		
 		try? volume?.invalidateItem(atPath: path)
@@ -237,17 +239,30 @@ final class SeafFS: NSObject {
 		// Critical Section //
 		lock.lock()
 		
-		if let names = dirCache[path] { lock.unlock(); return names }
-		// STEP1: Is there is a cache hit?
+		// STEP1: Is the path is under loading?
+		let busy = loading.contains(path)
+		
+		if let names = dirCache[path] {
+			let isStale = Date().timeIntervalSince(names.loadedAt) >= Self.cacheLifetime
+			var needFetch = false
+			if isStale, !busy {
+				loading.insert(path)
+				needFetch = true
+			}
+			lock.unlock()
+			if needFetch { scheduleFetch(path) }
+			return names.items
+		}
+		// STEP2: Is there is a cache hit?
 		// A: YES, CAN UNWRAP
 		// If we can unwrap, it is a **Cache Hit**, return and unlock
 		
 		// B: NO, CANNOT UNWRAP
-		// NO HIT, CALL THE FETCH, GO STEP2
-		let busy = loading.contains(path)
-		// STEP2: Is the path is under loading?
+		// NO HIT, CALL THE FETCH, GO STEP3
+		
+		
 		if !busy { loading.insert(path) }
-		// STEP3: If no, add this path to loading
+		// STEP3: If not loading, add this path to loading
 		
 		lock.unlock()
 		// Critical Section //
